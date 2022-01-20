@@ -5,3 +5,4 @@ tests
 bin
 build_release.sh
 .vscode
+.idea
