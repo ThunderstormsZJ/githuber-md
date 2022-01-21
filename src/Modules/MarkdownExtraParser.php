@@ -15,7 +15,7 @@ namespace Githuber\Module;
 use Markdown;
 use ParsedownExtra;
 
-class MarkdownExtraParser extends ParsedownExtra {
+class MarkdownExtraParser extends MarkdownTagExtra {
 
 	// Stores shortcodes we remove and then replace
 	protected $preserve_text_hash = array();
@@ -32,11 +32,6 @@ class MarkdownExtraParser extends ParsedownExtra {
 	 * @var boolean
 	 */
 	public $preserve_inline_code_blocks = true;
-
-    /**
-     * Preserve Tag {% [tag] [option] %} text {% end[tag] %}
-     */
-    public $preserve_tag_blocks = true;
 
 	/**
 	 * Constructer.
@@ -83,10 +78,6 @@ class MarkdownExtraParser extends ParsedownExtra {
 		if ( $this->preserve_shortcodes ) {
 			$text = $this->shortcode_preserve( $text );
 		}
-
-        if ($this->preserve_tag_blocks){
-            $text = $this->tagextend_preserve( $text );
-        }
 
 		$parsed_content = $this->text( $text );
 
@@ -143,33 +134,6 @@ class MarkdownExtraParser extends ParsedownExtra {
 
         return $inline;
 	}
-
-    /**
-     *
-     * @param  string $text Text in which to preserve shortcodes
-     * @return string Text with shortcodes replaced by a hash that will be restored later
-     */
-    protected function tagextend_preserve( $text ) {
-        $pattern = '{%{1}(.*?)%}{1}[\S]*' // {% [Tag] [args] %}
-            . '([\s\S]*?)'  // content
-            . '{%{1}\s*(\bend\S*?\b)\s*%}{1}'; //{% end[Tag] %}
-
-        $text = preg_replace_callback("/$pattern/", array( $this, 'tag_do_replace' ), $text );
-
-        return $text;
-    }
-
-    /**
-     * Regex callback for text preservation
-     *
-     * @param  array $matches Regex $matches array
-     * @return string    A placeholder that will later be replaced by the original text
-     */
-    protected function tag_do_replace($matches){
-        $tagclassname = trim($matches[1]);
-        $content = $this->text($matches[2]);
-        return "<div class='{$tagclassname}'>" . $this->hash_block($content) . '</div>';
-    }
 	
 	/**
 	 * The below methods are from Jetpack: Markdown modular
