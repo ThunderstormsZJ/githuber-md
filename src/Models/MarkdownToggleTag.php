@@ -12,13 +12,17 @@ class MarkdownToggleTag extends MarkdownTagBase{
 
     public function parseBegin($matchConfig)
     {
-        $matchArray = explode(" ", $matchConfig);
-        $toggleStyle = $matchArray[0];
-        $toggleConfig = $matchArray[1];
+        $toggleConfig = trim(str_replace($this->mTagName, '', $matchConfig));
+        $toggleStyle = 'hide-button toggle-title';
         $toggleTitle = '';
         if (!empty($toggleConfig)){
             $toggleConfigArray = explode(",", $toggleConfig);
-            $toggleTitle = $toggleConfigArray[0];
+            $toggleTitle = trim($toggleConfigArray[0]);
+            $toggleIsShow = strcasecmp($toggleConfigArray[1], 'show');
+
+            if ($toggleIsShow == 0){
+                $toggleStyle .= ' open';
+            }
         }
 
         return array(
@@ -30,7 +34,7 @@ class MarkdownToggleTag extends MarkdownTagBase{
                 array(
                     'name'=>'div',
                     'handler' => 'elements',
-                    'attributes' => array('class' => 'hide-button toggle-title'),
+                    'attributes' => array('class' => $toggleStyle),
                     'text' => array(
                         array(
                             'name'=>'i',
