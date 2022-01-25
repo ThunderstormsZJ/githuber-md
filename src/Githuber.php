@@ -165,6 +165,12 @@ class Githuber {
 			$module_emojify->init();
 		}
 
+		// Tag
+		if ( 'yes' === githuber_get_option( 'support_mardown_extra', 'githuber_extensions' ) ) {
+			$module_tag = new Module\MarkdownTag();
+            $module_tag->init();
+		}
+
 		/**
 		 * Let's start setting user's perferences...
 		 */
@@ -198,9 +204,7 @@ class Githuber {
 	 * @return void
 	 */
 	public function front_enqueue_styles() {
-		wp_register_style( 'md-style', false );
-		wp_enqueue_style( 'md-style' );
-		wp_add_inline_style( 'md-style', $this->get_front_enqueue_styles() );
+		wp_add_inline_style( 'md-style', $this->get_front_enqueue_styles());
 	}
 
 	/**

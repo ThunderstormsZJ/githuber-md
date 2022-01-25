@@ -1,6 +1,6 @@
 <?php
 /**
- * Module Name: MarkdownExtraParser
+ * Module Name: MarkdownExtraParserParser
  * Module Description: Parse Markdown plaintext into HTML plaintext.
  *
  * @author Terry Lin
@@ -13,9 +13,8 @@
 
 namespace Githuber\Module;
 use Markdown;
-use ParsedownExtra;
 
-class MarkdownExtraParser extends MarkdownTagExtra {
+class MarkdownExtraParserParser extends MarkdownTagExtraParser {
 
 	// Stores shortcodes we remove and then replace
 	protected $preserve_text_hash = array();

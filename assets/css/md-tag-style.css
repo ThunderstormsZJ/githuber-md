@@ -1,0 +1,208 @@
+/*region note*/
+.note {
+    position: relative;
+    margin: 0 0 20px;
+    padding: 15px;
+    border-radius: 3px;
+}
+
+.note p{
+    margin: 0;
+    padding: 0;
+}
+
+.note:not(.no-icon) {
+    padding-left: 3em;
+}
+
+.note::before{
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+}
+
+.note:not(.no-icon)::before {
+    position: absolute;
+    top: calc(50% - 13px);
+    left: .8em;
+    font-size: larger;
+}
+/*endregion note*/
+
+/*region note simple*/
+
+.note.flat {
+    border: initial;
+    border-left: 5px solid #eee;
+    background-color: #f9f9f9;
+    color: #4c4948;
+}
+
+.note.default.flat {
+    background: #f7f7f7;
+}
+
+.note.default:not(.modern) {
+    border-left-color: #777;
+}
+
+.note.default:not(.no-icon)::before {
+    content: '\f0a9';
+}
+
+.note.primary:not(.modern) {
+    border-left-color: #6f42c1;
+}
+
+.note.primary.flat {
+    background: #f5f0fa;
+}
+
+.note.primary:not(.no-icon)::before {
+    content: '\f055';
+}
+
+.note.primary:not(.no-icon):not(.modern)::before {
+    color: #6f42c1;
+}
+
+.note.success:not(.modern) {
+    border-left-color: #5cb85c;
+}
+
+.note.success.flat {
+    background: #eff8f0;
+}
+
+.note.success:not(.no-icon)::before {
+    content: '\f058';
+}
+
+.note.success:not(.no-icon):not(.modern)::before {
+    color: #5cb85c;
+}
+
+.note.info.flat {
+    background: #eef7fa;
+}
+
+.note.info:not(.modern) {
+    border-left-color: #428bca;
+}
+
+.note.info:not(.no-icon)::before {
+    content: '\f05a';
+}
+
+.note.info:not(.no-icon):not(.modern)::before {
+    color: #428bca;
+}
+
+.note.warning:not(.modern) {
+    border-left-color: #f0ad4e;
+}
+.note.warning.flat {
+    background: #fdf8ea;
+}
+
+.note.warning:not(.no-icon):not(.modern)::before {
+    color: #f0ad4e;
+}
+.note.warning:not(.no-icon)::before {
+    content: '\f06a';
+}
+
+.note.danger:not(.modern) {
+    border-left-color: #d9534f;
+}
+.note.danger.flat {
+    background: #fcf1f2;
+}
+
+.note.danger:not(.no-icon):not(.modern)::before {
+    color: #d9534f;
+}
+.note.danger:not(.no-icon)::before {
+    content: '\f056';
+}
+
+/*endregion*/
+
+/*region note modern*/
+
+.note.modern {
+    border: 1px solid transparent!important;
+    background-color: #f5f5f5;
+    color: #4c4948;
+}
+
+.note.default.modern {
+    border-color: #e1e1e1;
+    background: #f3f3f3;
+    color: #666;
+}
+
+.note.primary.modern {
+    border-color: #e1c2ff;
+    background: #f3daff;
+    color: #6f42c1;
+}
+
+.note.success.modern {
+    border-color: #d0e6be;
+    background: #dff0d8;
+    color: #3c763d;
+}
+
+.note.info.modern {
+    border-color: #b3e5ef;
+    background: #d9edf7;
+    color: #31708f;
+}
+
+.note.warning.modern {
+    border-color: #fae4cd;
+    background: #fcf4e3;
+    color: #8a6d3b;
+}
+
+.note.danger.modern {
+    border-color: #ebcdd2;
+    background: #f2dfdf;
+    color: #a94442;
+}
+
+/*endregion*/
+
+/*region toggle*/
+
+.hide-toggle {
+    margin-bottom: 1rem;
+    border: 1px solid #f0f0f0;
+}
+
+.hide-toggle>.hide-button {
+    padding: .3rem .5rem;
+    background: #f0f0f0;
+    color: #1f2d3d;
+    cursor: pointer;
+}
+
+.hide-toggle>.hide-button>i {
+    font-size: 1.2em;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -o-transition: all .3s;
+    -ms-transition: all .3s;
+    transition: all .3s;
+}
+
+.hide-toggle>.hide-content {
+    display: none;
+    margin: 1.5rem 1.2rem;
+}
+
+.hide-toggle>.hide-button.open+div {
+    display: block;
+}
+
+/*endregion toggle*/

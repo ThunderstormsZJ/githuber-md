@@ -15,6 +15,7 @@ if ( ! defined('GITHUBER_PLUGIN_NAME') ) die;
 <?php 
 
 echo __( 'Support <a href="https://michelf.ca/projects/php-markdown/extra/" target="_blank">Markdown Extra</a>.', 'wp-githuber-md' );
+echo __( 'And Support <a href="https://hexo.io/zh-cn/docs/tag-plugins.html">Tag Plugins</a>.', 'wp-githuber-md' );
 
 if ( ! class_exists( 'DOMDocument' ) ) {
 
