@@ -2,7 +2,7 @@
 
 namespace Githuber\Model;
 
-abstract class MarkDownTagBase
+abstract class MarkdownTagBase
 {
     protected $mTagName = '';
 

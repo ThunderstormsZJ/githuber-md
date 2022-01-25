@@ -11,7 +11,7 @@ use Githuber\Model as Model;
 
 class MarkdownTagExtraParser extends ParsedownExtra {
     /**
-     * @var Model\MarkDownTagBase[]
+     * @var Model\MarkdownTagBase[]
      */
     private $tagModelList = array();
 
@@ -25,7 +25,7 @@ class MarkdownTagExtraParser extends ParsedownExtra {
 
     /**
      * @param $tagName string
-     * @return Model\MarkDownTagBase
+     * @return Model\MarkdownTagBase
      */
     private function getTagModel($tagName){
         foreach ($this->tagModelList as $tagModel){

@@ -7,7 +7,7 @@ namespace Githuber\Model;
  * content
  * {% endhideToggle %}
  */
-class MarkdownToggleTag extends MarkDownTagBase{
+class MarkdownToggleTag extends MarkdownTagBase{
     protected $mTagName = 'hideToggle';
 
     public function parseBegin($matchConfig)

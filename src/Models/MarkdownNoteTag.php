@@ -7,7 +7,7 @@ namespace Githuber\Model;
  * content
  * {% endnote %}
  */
-class MarkdownNoteTag extends MarkDownTagBase
+class MarkdownNoteTag extends MarkdownTagBase
 {
     protected $mTagName = 'note';
     // Mode To Css Style
