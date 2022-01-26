@@ -21,6 +21,7 @@ class MarkdownTagExtraParser extends ParsedownExtra {
 
         array_push($this->tagModelList, new Model\MarkdownNoteTag());
         array_push($this->tagModelList, new Model\MarkdownToggleTag());
+        array_push($this->tagModelList, new Model\MarkdownTabTag());
     }
 
     /**

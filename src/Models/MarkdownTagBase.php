@@ -11,6 +11,16 @@ abstract class MarkdownTagBase
     }
 
     /**
+     * 获取配置内容
+     * @param $matchConfig string
+     * @return string
+     */
+    protected function getTagConfigStr($matchConfig)
+    {
+        return trim(str_replace($this->mTagName, '', $matchConfig));
+    }
+
+    /**
      * @return string
      */
     public function getTagName()
@@ -19,7 +29,7 @@ abstract class MarkdownTagBase
     }
 
     /**
-     * 开始解析 返回一个Element
+     * 开始解析 返回一个基础Element
      * @param $matchConfig string 标签后的内容
      * @return array
      */
@@ -47,7 +57,7 @@ abstract class MarkdownTagBase
      */
     public function dealWithInterrupted($element)
     {
-
+        return $element;
     }
 }
 

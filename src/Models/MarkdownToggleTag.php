@@ -12,7 +12,7 @@ class MarkdownToggleTag extends MarkdownTagBase{
 
     public function parseBegin($matchConfig)
     {
-        $toggleConfig = trim(str_replace($this->mTagName, '', $matchConfig));
+        $toggleConfig = $this->getTagConfigStr($matchConfig);
         $toggleStyle = 'hide-button toggle-title';
         $toggleTitle = '';
         if (!empty($toggleConfig)){
