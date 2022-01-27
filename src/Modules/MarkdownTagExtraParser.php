@@ -24,6 +24,16 @@ class MarkdownTagExtraParser extends ParsedownExtra {
         array_push($this->tagModelList, new Model\MarkdownTabTag());
     }
 
+    function text($text)
+    {
+        $markup = parent::text($text);
+
+        // 替换掉部分\n 防止自动添加<br>
+        $markup = preg_replace('/<\/i>\s+<span>/', '</i><span>', $markup);
+
+        return $markup;
+    }
+
     /**
      * @param $tagName string
      * @return Model\MarkdownTagBase

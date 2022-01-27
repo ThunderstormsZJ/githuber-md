@@ -439,9 +439,10 @@ class Markdown extends ControllerAbstract {
 		$is_katex     = false;
 		$is_mathjax   = false;
 
-		if ( preg_match_all( '/<code class="language-([a-z\-0-9]+)"/', $post_content, $matches ) > 0 && ! empty( $matches[1] ) ) {
+		if ( preg_match_all( '/<code class="language-([a-zA-Z0-9]+)"/', $post_content, $matches ) > 0 && ! empty( $matches[1] ) ) {
 
 			foreach ( $matches[1] as $match ) {
+                $match = strtolower($match);
 
 				if ( ! empty( Module\Prism::$prism_codes[ $match ] ) ) {
 					$prism_meta_array[ $match ] = $match;

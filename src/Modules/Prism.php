@@ -535,16 +535,19 @@ class Prism extends ModuleAbstract {
 	public function front_print_footer_scripts() {
 		$prism_line_number = githuber_get_option( 'prism_line_number', 'githuber_modules' );
 
-		if ( 'yes' === $prism_line_number ) {
+		if ( 'no' === $prism_line_number ) {
 			$script = '
 				<script id="module-prism-line-number">
 					(function($) {
 						$(function() {
 							$("code").each(function() {
-								var parent_div = $(this).parent("pre");
-								var pre_css = $(this).attr("class");
-								if (typeof pre_css !== "undefined" && -1 !== pre_css.indexOf("language-")) {
-									parent_div.addClass("line-numbers");
+								let $parent_div = $(this).parent("pre");
+								if ($parent_div.length > 0) {
+								    $parent_div.removeClass("line-numbers");
+								}
+	                            let $number_row = $(this).children(".line-numbers-rows");
+								if ($number_row.length > 0){
+								    $number_row.remove();
 								}
 							});
 						});
@@ -577,7 +580,6 @@ class Prism extends ModuleAbstract {
 			case 'javascript':
 			case 'js':
 				return true;
-				break;
 			default:
 				return false;
 		}

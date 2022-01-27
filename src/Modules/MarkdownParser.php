@@ -36,6 +36,7 @@ class MarkdownParser extends Parsedown {
 	 * Constructer.
 	 */
 	public function __construct() {
+        parent::__construct();
 
 		$is_html5_figure = githuber_get_option( 'support_html_figure', 'githuber_extensions' );
 
@@ -206,8 +207,11 @@ class MarkdownParser extends Parsedown {
 	public function do_single_line_code_preserve( $matches ) {
 
 		if ( 'yes' === githuber_get_option( 'support_inline_code_keyboard_style', 'githuber_extensions' ) ) {
-			if ( '}' === substr( $matches[1], -1 ) && '{' !== substr( $matches[1], 0, 1 ) ) {
-				return '<code class="kb-btn">' . $this->hash_block( esc_html( $matches[1] ) ) . '</code>';
+			$first_char = substr( $matches[1], 0, 1 );
+			$last_char  = substr( $matches[1], -1 );
+			
+			if ( '{' === $first_char && '}' === $last_char ) {
+				return '<code class="kb-btn">' . $this->hash_block( esc_html( substr( $matches[1], 1, -1 ) ) ) . '</code>';
 			}
 		}
 		return '<code>' . $this->hash_block( esc_html( $matches[1] ) ) . '</code>';

@@ -48,8 +48,6 @@ class ParsedownExtra extends Parsedown
         # merge consecutive dl elements
 
         $markup = preg_replace('/<\/dl>\s+<dl>\s+/', '', $markup);
-        // 替换掉部分\n 防止自动添加<br>
-        $markup = preg_replace('/<\/i>\s+<span>/', '</i><span>', $markup);
 
         # add footnotes
 
