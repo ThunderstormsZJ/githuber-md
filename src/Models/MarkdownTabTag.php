@@ -54,7 +54,7 @@ class MarkdownTabTag extends MarkdownTagBase{
             $curIndex = sizeof($this->tabDataList) + 1;
 
             $tabId = $id . '-' . $curIndex;
-            $tabConfigStr = trim(strval(str_replace('tab', '', $matches)));
+            $tabConfigStr = trim(str_replace('tab', '', $matches[1]));
             $tabConfig = explode("@", $tabConfigStr);
             $tabName = array_key_exists(0, $tabConfig) ? $tabConfig[0] : '';
             $tabIcon = array_key_exists(1, $tabConfig) ? $tabConfig[1] : '';
