@@ -19,9 +19,9 @@ class MarkdownTagExtraParser extends ParsedownExtra {
     {
         $this->BlockTypes['{'] = array('NoteTagMaker');
 
-        array_push($this->tagModelList, new Model\MarkdownNoteTag());
-        array_push($this->tagModelList, new Model\MarkdownToggleTag());
-        array_push($this->tagModelList, new Model\MarkdownTabTag());
+        $this->tagModelList[] = new Model\MarkdownNoteTag();
+        $this->tagModelList[] = new Model\MarkdownToggleTag();
+        $this->tagModelList[] = new Model\MarkdownTabTag();
     }
 
     function text($text)

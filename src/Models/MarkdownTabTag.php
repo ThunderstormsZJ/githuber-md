@@ -3,9 +3,9 @@ namespace Githuber\Model;
 
 /**
  * {% tabs [Unique Name], [Select Index] %}
- * <!-- tabs [Tab caption] [@icon] -->
+ * <!-- tab [Tab caption] [@icon] -->
  * content
- * <!-- endtabs -->
+ * <!-- endtab -->
  * {% endtabs %}
  */
 class MarkdownTabTag extends MarkdownTagBase{
@@ -17,16 +17,19 @@ class MarkdownTabTag extends MarkdownTagBase{
     {
         $tabConfig = $this->getTagConfigStr($matchConfig);
         $tabUniqueName = '';
-        $tabSelectIndex = 0;
+        $tabSelectIndex = 1;
         if (!empty($tabConfig)){
             $tabConfigArray = explode(",", $tabConfig);
             $tabUniqueName = trim($tabConfigArray[0]);
-            $tabSelectIndex = trim($tabConfigArray[1]);
+			if (!empty($tabConfigArray[1])){
+	            $tabSelectIndex = (int)trim($tabConfigArray[1]);
+			}
         }
 
         return array(
             'name' => 'div',
             'handler' => 'elements',
+			'selectIndex' => $tabSelectIndex,
             'attributes' => array('class' => 'tabs', 'id' => $tabUniqueName),
             'text' => array(
                 // nav-tabs
@@ -51,6 +54,7 @@ class MarkdownTabTag extends MarkdownTagBase{
         // Begin <!-- tab name, -->
         if (!isset($this->curTabData['isBegin']) and preg_match('/<!--[\s]*([\s\S]*)-->/', $line['body'], $matches)){
             $id = $element['attributes']['id'];
+			$selectIndex = $element['selectIndex'];
             $curIndex = sizeof($this->tabDataList) + 1;
 
             $tabId = $id . '-' . $curIndex;
@@ -64,16 +68,17 @@ class MarkdownTabTag extends MarkdownTagBase{
                 'id' => $tabId,
                 'name' => $tabName,
                 'icon' => $tabIcon,
+				'isSelect' => $selectIndex == $curIndex,
                 'content' => array()
             );
         } elseif (isset($this->curTabData['isBegin'])){
             if ($this->curTabData['isBegin'] and preg_match('/<!--[\s]*endtab[\s]*-->/', $line['body'])){
-                // End <!-- endtabs -->
-                array_push($this->tabDataList, $this->curTabData);
-                $this->curTabData = array();
+                // End <!-- endtab -->
+                $this->tabDataList[] = $this->curTabData;
+                $this->curTabData    = array();
             }else{
                 // Content
-                array_push($this->curTabData['content'], $line['body']);
+                $this->curTabData['content'][] = $line['body'];
             }
         }
 
@@ -83,8 +88,8 @@ class MarkdownTabTag extends MarkdownTagBase{
     public function parseEnd($element)
     {
         foreach ($this->tabDataList as $tabData){
-            array_push($element['text'][0]['text'], $this->createTableTab($tabData));
-            array_push($element['text'][1]['text'], $this->createTableContent($tabData));
+            $element['text'][0]['text'][] = $this->createTableTab( $tabData );
+            $element['text'][1]['text'][] = $this->createTableContent( $tabData );
         }
         $this->tabDataList = array();
 
@@ -96,37 +101,31 @@ class MarkdownTabTag extends MarkdownTagBase{
      */
     private function createTableTab($tabData)
     {
+		$isSelect = $tabData['isSelect'];
+
         $liEelement = array(
             'name' => 'li',
             'handler' => 'element',
-            'attributes' => array('class' => 'tab'),
+            'attributes' => array('class' => 'tab' . ($isSelect?' active':'')),
             'text' => array(
                 'name' => 'button',
                 'attributes' => array('type' => 'button', 'data-href' => '#' . $tabData['id']),
-                'handler' => 'elements',
+                'handler' => 'line',
                 'text' => array()
             )
         );
 
-        if (!empty($tabData['icon'])){
-            // support icon
-            array_push($liEelement['text']['text'], array(
-                'name' => 'i',
-                'attributes' => array('class' => $tabData['icon']),
-                'text' => ''
-            ));
-        }
+	    $icon = $tabData['icon'];
+		$titleName = $tabData['name'];
 
-        if (!empty($tabData['name'])){
-            array_push($liEelement['text']['text'], array(
-                'text' => $tabData['name']
-            ));
-        }
-
-        if (empty($tabData['icon']) and empty($tabData['name'])){
-            unset($liEelement['text']['handler']);
-            $liEelement['text']['text'] = $tabData['id'];
-        }
+		if (!empty($titleName) and !empty($icon)){// show txt + icon (text and icon)
+			$liEelement['text']['text'] = "<i class='$icon'></i>$titleName";
+		}elseif (empty($titleName) and !empty($icon)){// only show icon (no text and icon)
+			$liEelement['text']['text'] = "<i class='$icon'></i>";
+		}else{// only show txt (text/no text and no icon)
+			unset($liEelement['text']['handler']);
+			$liEelement['text']['text'] = $tabData['id'];
+		}
 
         return $liEelement;
     }
@@ -136,9 +135,11 @@ class MarkdownTabTag extends MarkdownTagBase{
      */
     private function createTableContent($tabData)
     {
+	    $isSelect = $tabData['isSelect'];
+
         $contentEelment = array(
             'name' => 'div',
-            'attributes' => array('class' => 'tab-item-content', 'id' => $tabData['id']),
+            'attributes' => array('class' => 'tab-item-content' . ($isSelect?' active':''), 'id' => $tabData['id']),
             'handler' => 'lines',
             'text' => $tabData['content']
         );
