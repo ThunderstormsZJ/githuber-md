@@ -154,10 +154,12 @@ class Githuber {
 		}
 
 		// Copy to Clipboard
-		if ( 'yes' === githuber_get_option( 'support_clipboard', 'githuber_modules' ) ) {
-			$module_clipboard = new Module\Clipboard();
-			$module_clipboard->init();
-		}
+		$module_clipboard = new Module\Clipboard();
+		$module_clipboard->init();
+//		if ( 'yes' === githuber_get_option( 'support_clipboard', 'githuber_modules' ) ) {
+//			$module_clipboard = new Module\Clipboard();
+//			$module_clipboard->init();
+//		}
 
 		// Emojify
 		if ( 'yes' === githuber_get_option( 'support_emojify', 'githuber_modules' ) ) {

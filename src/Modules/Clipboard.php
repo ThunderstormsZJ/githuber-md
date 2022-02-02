@@ -84,7 +84,6 @@ class Clipboard extends ModuleAbstract {
 					$(function() {
 	
 						var pre = document.getElementsByTagName("pre");
-						var pasteContent = document.getElementById("paste-content");
 						var hasLanguage = false;
 		
 						for (var i = 0; i < pre.length; i++) {
@@ -107,28 +106,22 @@ class Clipboard extends ModuleAbstract {
 							}
 		
 							if (isLanguage !== -1) {
-								var button = document.createElement("button");
-								button.className = "copy-button";
-								button.textContent = "Copy";
-			
-								pre[i].appendChild(button);
 								hasLanguage = true;
+							}else{
+                                var $copyBtn = $(pre).siblings(".highlight-tools").children(".copy-button");
+                                $copyBtn.remove();
 							}
 						};
 
 						if (hasLanguage) {
 							var copyCode = new ClipboardJS(".copy-button", {
 								target: function(trigger) {
-									return trigger.previousElementSibling;
+									return $(trigger).parent().parent().siblings("pre")[0];
 								}
 							});
 
 							copyCode.on("success", function(event) {
 								event.clearSelection();
-								event.trigger.textContent = "Copied";
-								window.setTimeout(function() {
-									event.trigger.textContent = "Copy";
-								}, 2000);
 							});
 
 						}

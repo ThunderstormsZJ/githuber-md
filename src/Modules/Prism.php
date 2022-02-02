@@ -427,6 +427,7 @@ class Prism extends ModuleAbstract {
 					break;
 			}
 
+			$style_url[] = $this->githuber_plugin_url . 'assets/css/githuber-md-code.css';
 			foreach ( $style_url as $key => $url ) {
 				wp_enqueue_style( 'prism-css-' . $key, $url, array(), $this->prism_version, 'all' );
 			}
@@ -487,6 +488,7 @@ class Prism extends ModuleAbstract {
 					break;
 			}
 
+			$script_url[] = $this->githuber_plugin_url . 'assets/js/githuber-md-code.js';
 			foreach ( $script_url as $key => $url ) {
 				wp_enqueue_script( 'prism-js-' . $key, $url, array(), $this->prism_version, true );
 			}

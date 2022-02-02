@@ -701,35 +701,35 @@ class Setting extends ControllerAbstract {
 
 				// -------------------------------------------------------------------//
 
-				array(
-					'section_title' => true,
-					'location_id'   => 'clipboard',
-					'label'         => __( 'Copy to Clipboard', 'wp-githuber-md' ),
-					'desc'          => __( 'clipboard.js', 'wp-githuber-md' ),
-				),
-
-				array(
-					'name'    => 'support_clipboard',
-					'desc'    => __( 'Display a `Copy` button on the highlighting code block. Copy the text into clipboard by clicking the button.', 'wp-githuber-md' ),
-					'type'        => 'toggle',
-					'has_child'   => true,
-					'default'     => 'yes',
-					'location_id' => 'clipboard',
-				),
-
-				array(
-					'name'    => 'clipboard_src',
-					'label'   => __( 'File Host', 'wp-githuber-md' ),
-					'desc'    => __( 'Use this library with a CDN service or self-hosted (default)?', 'wp-githuber-md' ),
-					'type'    => 'radio',
-					'default' => 'default',
-					'parent'  => 'support_clipboard',
-					'options' => array(
-						'default'    => __( 'default', 'wp-githuber-md' ),
-						'cloudflare' => 'cdnjs.cloudflare.com',
-						'jsdelivr'   => 'cdn.jsdelivr.net',
-					)
-				),
+//				array(
+//					'section_title' => true,
+//					'location_id'   => 'clipboard',
+//					'label'         => __( 'Copy to Clipboard', 'wp-githuber-md' ),
+//					'desc'          => __( 'clipboard.js', 'wp-githuber-md' ),
+//				),
+//
+//				array(
+//					'name'    => 'support_clipboard',
+//					'desc'    => __( 'Display a `Copy` button on the highlighting code block. Copy the text into clipboard by clicking the button.', 'wp-githuber-md' ),
+//					'type'        => 'toggle',
+//					'has_child'   => true,
+//					'default'     => 'yes',
+//					'location_id' => 'clipboard',
+//				),
+//
+//				array(
+//					'name'    => 'clipboard_src',
+//					'label'   => __( 'File Host', 'wp-githuber-md' ),
+//					'desc'    => __( 'Use this library with a CDN service or self-hosted (default)?', 'wp-githuber-md' ),
+//					'type'    => 'radio',
+//					'default' => 'default',
+//					'parent'  => 'support_clipboard',
+//					'options' => array(
+//						'default'    => __( 'default', 'wp-githuber-md' ),
+//						'cloudflare' => 'cdnjs.cloudflare.com',
+//						'jsdelivr'   => 'cdn.jsdelivr.net',
+//					)
+//				),
 
 				array(
 					'section_title' => true,

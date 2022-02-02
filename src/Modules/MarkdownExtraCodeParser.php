@@ -19,11 +19,31 @@ trait MarkdownExtraCodeParser {
         $Block = parent::blockFencedCodeComplete($Block);
 
         if (!is_null($Block)){
-            // --TODO Change figure element
-//            $element = $Block['element'];
-//            $figureElement = array(
-//
-//            );
+	        $element = $Block['element'];
+			$class = $element['text']['attributes']['class'];
+	        $language = str_replace('language-', '', $class);
+
+            // Change figure element
+	        $tools = array(
+				'name' => 'div',
+				'handler' => 'line',
+				'attributes' => array('class' => 'highlight-tools'),
+	            'text' => "<div class='code-lang'>$language</div>
+<div class='code-notice'>
+<i class='fas fa-paste copy-button'></i><i class='fas fa-angle-down expand'></i>
+</div>"
+	        );
+
+            $figureElement = array(
+				'name'=>'figure',
+	            'handler' => 'elements',
+				'attributes' => array('class' => 'highlight'),
+	            'text' => array(
+		            $tools,
+					$element
+	            )
+            );
+			$Block['element'] = $figureElement;
         }
 
         return $Block;
