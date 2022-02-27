@@ -8,6 +8,7 @@ namespace Githuber\Module;
 
 class MarkdownTag extends ModuleAbstract
 {
+	public $tag_version = '1.0.0';
 
     public function init()
     {
@@ -24,8 +25,7 @@ class MarkdownTag extends ModuleAbstract
 
     public function front_enqueue_scripts()
     {
-        wp_register_script( 'tag-src', GITHUBER_PLUGIN_URL . 'assets/js/md-tag-main.js', array( 'jquery' ));
-        wp_enqueue_script( 'tag-src' );
+	    wp_enqueue_script( 'tag-src', GITHUBER_PLUGIN_URL . 'assets/js/md-tag-main.js', array(), $this->tag_version, true);
     }
 
     public function front_print_footer_scripts()
